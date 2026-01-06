@@ -8,5 +8,6 @@ func main(){
 	// arrays()
 	// slices()
 	// operators()
-	conditions()
+	// conditions()
+	loops()
 }
