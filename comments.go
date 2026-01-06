@@ -2,7 +2,8 @@ package main
 import ("fmt")
 
 
-func main(){
+func comments(){
+	// comments are usually ignored by compilers
 	// a function to print a full name of brightius kalokola
 	/* this is a mutiline comment 
 	you can adjusts and place more contents here
