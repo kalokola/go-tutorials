@@ -9,7 +9,19 @@ import (
 func main(){
 	router := gin.Default()
 	router.GET("/albums", getAlbums)
+	router.POST("/albums", postAlbums)
+	router.GET("/albums/:id", getAlbumByID)
 	router.Run("localhost:8080")
+}
+
+type SuccessResponse struct {
+	Success bool `json:"success"`
+	Data interface{} `json:"data"`
+}
+
+type ErrorResponse struct {
+	Success bool `json:"success"`
+	Error string `json:"error"`
 }
 
 type album struct {
@@ -29,4 +41,37 @@ var albums = [] album {
 func getAlbums(c *gin.Context){
 	// the context is very important to carry request details
 	c.IndentedJSON(http.StatusOK, albums) // good for serialisation
+}
+
+func postAlbums(c *gin.Context){
+	var newAlbum album
+
+	if err := c.BindJSON(&newAlbum); err != nil { // if the error is nil everything is fine
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+	}
+
+	albums = append(albums, newAlbum)
+
+	c.IndentedJSON(http.StatusCreated, albums)
+}
+
+func getAlbumByID(c *gin.Context){
+	id := c.Param("id")
+
+	for _, val := range albums {
+		if id == val.ID {
+			c.IndentedJSON(http.StatusOK, SuccessResponse{
+				Success: true,
+				Data: val,
+			})
+			return
+		}
+	}
+
+	c.IndentedJSON(http.StatusNotFound, ErrorResponse{
+		Success: false,
+		Error:"album not found",
+	})
 }
