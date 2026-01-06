@@ -15,5 +15,5 @@ func dataTypes(){
 	fmt.Printf("Age %v at %v", age, degrees)
 
 	var weight float64 = 67.5
-	fmt.Print("A melon grew %v", weight)
+	fmt.Printf("A melon grew %v kgs", weight)
 }

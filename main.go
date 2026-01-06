@@ -4,5 +4,9 @@ package main
 func main(){
 	// variablesInfo()
 	// showConstants()
-	dataTypes()
+	// dataTypes()
+	// arrays()
+	// slices()
+	// operators()
+	conditions()
 }
